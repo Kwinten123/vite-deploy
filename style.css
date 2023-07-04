@@ -38,3 +38,66 @@ html {
   display: flex;
   gap: 3rem;
 }
+
+
+/*scroll indicator*/
+
+.scroll-div {
+  position: absolute;
+  display: block;
+  justify-self: center;
+  bottom: 3%;
+  left: 50%;
+  z-index: 2;
+}
+
+.scroll-middle {
+  width: 35px;
+  height: 64px;
+  border-radius: 3rem;
+  border: 3px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0.5rem;
+  z-index: 2;
+  position: relative;
+  overflow: hidden;
+}
+
+/*middle scroll ball*/
+.scroll-middle::after {
+  content: '';
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 15px;
+  background-color: white;
+  border-radius: 50%;
+  animation: bounce 3s linear infinite;
+}
+
+
+@keyframes bounce {
+  0% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -30px);
+  }
+  100% {
+    transform: translate(-50%, 0);
+  }
+}
+
+#projects{
+  position: absolute;
+  z-index: 2;
+  color: white;
+}
+
+main{
+  position: absolute;
+}
