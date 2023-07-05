@@ -16,22 +16,45 @@ const sizes = {
 // earth sphere
 const earthGeometry = new Three.SphereGeometry(3, 64, 64);
 const earthWrapper = new Three.TextureLoader().load('./images/earth.jpg');
-const earthMaterial = new Three.MeshStandardMaterial({ map: earthWrapper });
+const earthNormalTexture = new Three.TextureLoader().load('./images/earth_normalmap.jpg')
+const earthMaterial = new Three.MeshStandardMaterial({
+    map: earthWrapper,
+    normalMap: earthNormalTexture
+});
 const earth = new Three.Mesh(earthGeometry, earthMaterial);
+earth.position.set(0, 0, 0);
 scene.add(earth);
 
 
 
 // Sun sphere
-const sunGeometry = new Three.SphereGeometry(7, 64, 64);
+const sunGeometry = new Three.SphereGeometry(4, 64, 64);
 const sunWrapper = new Three.TextureLoader().load('./images/sun.jpg');
-const sunMaterial = new Three.MeshBasicMaterial({ map: sunWrapper });
+const sunNormalTexture = new Three.TextureLoader().load('./images/sun_normalmap.jpg')
+
+const sunMaterial = new Three.MeshBasicMaterial({
+    map: sunWrapper,
+    normalMap : sunNormalTexture
+});
 const sun = new Three.Mesh(sunGeometry, sunMaterial);
-sun.position.set(0, 30, 90);
+sun.position.set(0, 0, 90);
 scene.add(sun);
 
+// moon sphere
+const moonGeometry = new Three.SphereGeometry(.75, 64, 64);
+const moonWrapper = new Three.TextureLoader().load('./images/moon.jpg');
+const moonNormalTexture = new Three.TextureLoader().load('./images/moon_normalmap.jpg')
+
+const moonMaterial = new Three.MeshBasicMaterial({
+    map: moonWrapper,
+    normalMap : moonNormalTexture
+});
+const moon = new Three.Mesh(moonGeometry, moonMaterial);
+moon.position.set(20, 0, 20);
+scene.add(moon);
+
 // Lighting
-const light = new Three.PointLight(0xffffff, 1, 150);
+const light = new Three.PointLight(0xffffff, 1, 1500);
 light.position.copy(sun.position);
 scene.add(light);
 
@@ -39,24 +62,35 @@ scene.add(light);
 
 
 //camera
-const camera = new Three.PerspectiveCamera(60, sizes.width/sizes.height, 0.1, 150)
-camera.position.z = 20
+const camera = new Three.PerspectiveCamera(50, sizes.width/sizes.height, 0.1, 1000)
+camera.position.z = 30
 scene.add(camera)
 
 
-//randomly generate a star
+// Randomly generate a star within a specified area, filling both sides
 function addStar() {
-    const geometry = new Three.SphereGeometry(0.1, 64, 64);
+    const geometry = new Three.SphereGeometry(0.25, 64, 64);
     const material = new Three.MeshStandardMaterial({ color: 0xffffff });
     const star = new Three.Mesh(geometry, material);
 
-    const [x, y, z] = Array(3)
-        .fill()
-        .map(() => Three.MathUtils.randFloatSpread(100));
+    // Define the range for x, y, and z coordinates
+    const minX = -250;
+    const maxX = 250;
+    const minY = -250;
+    const maxY = 250;
+    const minZ = 100;
+    const maxZ = 250;
 
+    // Generate random values within the specified range
+    const x = Three.MathUtils.randFloat(minX, maxX);
+    const y = Three.MathUtils.randFloat(minY, maxY);
+    const z = Math.random() < 0.5 ? Three.MathUtils.randFloat(minZ, maxZ) : Three.MathUtils.randFloat(-maxZ, -minZ);
+    console.log(z)
     star.position.set(x, y, z);
     scene.add(star);
 }
+
+
 
 const amountOfStars = 200
 
@@ -107,6 +141,9 @@ const loop = () =>{
 
     //rotate the world
     earth.rotation.y += 0.002
+
+    //rotate the moon
+    moon.rotation.y += 0.002
 
     //update controls
     controls.update()
