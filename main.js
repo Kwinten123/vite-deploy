@@ -15,7 +15,7 @@ const sizes = {
 
 // earth sphere
 const earthGeometry = new Three.SphereGeometry(3, 64, 64);
-const earthWrapper = new Three.TextureLoader().load('/images/earth.jpg');
+const earthWrapper = new Three.TextureLoader().load('./images/earth.jpg');
 const earthMaterial = new Three.MeshStandardMaterial({ map: earthWrapper });
 const earth = new Three.Mesh(earthGeometry, earthMaterial);
 scene.add(earth);
@@ -24,7 +24,7 @@ scene.add(earth);
 
 // Sun sphere
 const sunGeometry = new Three.SphereGeometry(7, 64, 64);
-const sunWrapper = new Three.TextureLoader().load('/images/sun.jpg');
+const sunWrapper = new Three.TextureLoader().load('./images/sun.jpg');
 const sunMaterial = new Three.MeshBasicMaterial({ map: sunWrapper });
 const sun = new Three.Mesh(sunGeometry, sunMaterial);
 sun.position.set(0, 30, 90);
