@@ -11,7 +11,7 @@ html {
 }
 
 .webgl{
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 1;
@@ -32,6 +32,10 @@ html {
   font-weight: bold;
 }
 
+.nav-bar li a{
+  font-weight: normal;
+}
+
 .nav-bar ul{
   cursor: pointer;
   list-style: none;
@@ -44,11 +48,10 @@ html {
 
 .scroll-div {
   position: absolute;
-  display: block;
-  justify-self: center;
   bottom: 3%;
   left: 50%;
   z-index: 2;
+  cursor: pointer;
 }
 
 .scroll-middle {
@@ -79,7 +82,6 @@ html {
   animation: bounce 3s linear infinite;
 }
 
-
 @keyframes bounce {
   0% {
     transform: translate(-50%, 0);
@@ -92,12 +94,97 @@ html {
   }
 }
 
-#projects{
-  position: absolute;
-  z-index: 2;
-  color: white;
+
+
+#contact {
+  margin-top: 80px; /* Adjust this value as needed */
 }
 
-main{
-  position: absolute;
+
+
+/*projects section*/
+
+#projects {
+  margin-top: 100vh;
+  z-index: 2;
+  position: relative;
+  color: white;
+  padding: 4rem 8rem;
 }
+
+.projects-small-title{
+  font-weight: lighter;
+}
+
+.projects-title{
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.projects-bio{
+  margin-top: 10px;
+  font-weight: lighter;
+}
+
+.projects-container{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.project-container{
+  display: flex;
+  width: 360px;
+  background-color: #020021;
+  border-radius: 5%;
+  padding: 1rem;
+  margin-top: 10%;
+  flex-direction: column;
+}
+
+.project-container img{
+  border-radius: 5%;
+  width: 100%;
+  height: 200px;
+
+}
+
+.project-container h3{
+  margin: 10px 0 5px 0;
+  font-weight: bold;
+}
+
+.project-container p{
+  font-weight: lighter;
+  line-height: 1.5em;
+}
+
+.project-container p a{
+  color: blue;
+}
+
+.project-tags{
+  padding: 20px 10px 10px 0;
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+  font-weight: bold;
+  font-size: .8em;
+}
+
+.html{
+  color: green;
+}
+
+.css{
+  color: deeppink;
+}
+
+.sql{
+  color: lightblue;
+}
+
+.js{
+  color: orange;
+}
+

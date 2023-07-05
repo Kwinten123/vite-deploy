@@ -1,6 +1,8 @@
 import * as Three from 'three'
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import gsap from "gsap";
 import './style.css'
+import VanillaTilt from "vanilla-tilt";
 
 //scene
 const scene = new Three.Scene();
@@ -26,7 +28,6 @@ earth.position.set(0, 0, 0);
 scene.add(earth);
 
 
-
 // Sun sphere
 const sunGeometry = new Three.SphereGeometry(4, 64, 64);
 const sunWrapper = new Three.TextureLoader().load('./images/sun.jpg');
@@ -40,18 +41,20 @@ const sun = new Three.Mesh(sunGeometry, sunMaterial);
 sun.position.set(0, 0, 90);
 scene.add(sun);
 
+
 // moon sphere
 const moonGeometry = new Three.SphereGeometry(.75, 64, 64);
 const moonWrapper = new Three.TextureLoader().load('./images/moon.jpg');
 const moonNormalTexture = new Three.TextureLoader().load('./images/moon_normalmap.jpg')
 
-const moonMaterial = new Three.MeshBasicMaterial({
+const moonMaterial = new Three.MeshStandardMaterial({
     map: moonWrapper,
     normalMap : moonNormalTexture
 });
 const moon = new Three.Mesh(moonGeometry, moonMaterial);
-moon.position.set(20, 0, 20);
+moon.position.set(20, 0, 12);
 scene.add(moon);
+
 
 // Lighting
 const light = new Three.PointLight(0xffffff, 1, 1500);
@@ -64,6 +67,7 @@ scene.add(light);
 //camera
 const camera = new Three.PerspectiveCamera(50, sizes.width/sizes.height, 0.1, 1000)
 camera.position.z = 30
+camera.position.y = 10
 scene.add(camera)
 
 
@@ -85,14 +89,13 @@ function addStar() {
     const x = Three.MathUtils.randFloat(minX, maxX);
     const y = Three.MathUtils.randFloat(minY, maxY);
     const z = Math.random() < 0.5 ? Three.MathUtils.randFloat(minZ, maxZ) : Three.MathUtils.randFloat(-maxZ, -minZ);
-    console.log(z)
     star.position.set(x, y, z);
     scene.add(star);
 }
 
 
 
-const amountOfStars = 200
+const amountOfStars = 100
 
 Array(amountOfStars).fill().forEach(addStar);
 
@@ -153,3 +156,28 @@ const loop = () =>{
     window.requestAnimationFrame(loop)
 }
 loop()
+
+//opening animation
+const timeLine = gsap.timeline({defaults: {duration : 1}})
+timeLine.fromTo("nav", {y: "-200%"}, {y: "0%"})
+
+
+//scroll function
+function moveCamera() {
+    const currentPos = document.body.getBoundingClientRect().top;
+    const targetY = currentPos * -0.05; // Adjust the multiplication factor to control the camera movement
+
+    // Animate camera movement using GSAP
+    gsap.to(camera.position, { duration: 1, y: targetY });
+
+    // Update camera lookAt to center on the spheres
+    camera.lookAt(0, 0, 0);
+}
+
+window.addEventListener("scroll", moveCamera);
+
+//make the project cards tilted
+VanillaTilt.init(document.querySelectorAll(".project-container"));
+
+
+
