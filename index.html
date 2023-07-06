@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>App</title>
-    <script type="module" crossorigin src="/vite-deploy/assets/index-a123aa36.js"></script>
-    <link rel="stylesheet" href="/vite-deploy/assets/index-bfdae745.css">
+    <script type="module" crossorigin src="/vite-deploy/assets/index-8c2e64d8.js"></script>
+    <link rel="stylesheet" href="/vite-deploy/assets/index-c5226dda.css">
   </head>
   <body>
     <canvas class="webgl"></canvas>
     <nav class="nav-bar">
       <a href="#">Quinten Hoogkamer</a>
       <ul>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a id="nav-projects" href="#projects">Projects</a></li>
+        <li><a id="nav-contact" href="#contact">Contact</a></li>
       </ul>
     </nav>
 
@@ -56,10 +56,32 @@
           </div>
 
           <div class="project-tags">
-            <p class="html">#HTML</p>
-            <p class="css">#CSS</p>
-            <p class="sql">#SQL</p>
-            <p class="js">#JS</p>
+            <p class="html">#html</p>
+            <p class="css">#css</p>
+            <p class="sql">#sql</p>
+            <p class="js">#js</p>
+          </div>
+        </div>
+
+        <div class="project-container">
+          <div class="project-image">
+            <img src="./images/hva_project.png" alt="tt logo">
+          </div>
+          <div class="project-content">
+            <h3>Hva wegwijzer</h3>
+            <p>Web-based platform that allows open day organisers at the Hogeschool van Amsterdam
+              to compile schedules, maps and custom questionaires for open day visitors to see.
+              This is a convenient and efficient solution for the client <a href="#" onclick="window.location = 'https://www.hva.nl/'">Hva</a>.
+            </p>
+          </div>
+
+          <div class="project-tags">
+            <p class="html">#html</p>
+            <p class="css">#css</p>
+            <p class="node">#node.js</p>
+            <p class="express">#express.js</p>
+            <p class="sql">#sql</p>
+            <p class="js">#js</p>
           </div>
         </div>
 
@@ -67,9 +89,49 @@
 
     </section>
 
+    <canvas class="balls-container"></canvas>
+
 
     <section id="contact">
-      <div></div>
+      <div class="contact-form">
+
+        <div class="contact-title-container">
+          <p>Get in touch</p>
+          <h3>Contact.</h3>
+        </div>
+
+        <form>
+
+          <div class="name-container form-container">
+          <label for="inputName">Your name</label>
+          <input type="text" name="inputName" class="form-control" id="inputName"
+            placeholder="What is your name?">
+          <div  id="name-error"></div>
+          </div>
+
+          <div class="email-container form-container">
+            <label for="inputEmail" class="form-label">Your email</label>
+            <input type="text" class="form-control" id="inputEmail"
+                  placeholder="What is your email?">
+            <div id="email-error"></div>
+          </div>
+
+          <div class="message-container form-container">
+            <label for="inputMessage" class="form-label" >Your message</label>
+            <textarea type="text" class="form-control" id="inputMessage"
+                      placeholder="What do you want to say?"></textarea>
+            <div id="message-error"></div>
+          </div>
+
+          <div class="button-container">
+            <button class="send">Send</button>
+          </div>
+
+        </form>
+        
+
+      </div>
+      <div class="location-container"></div>
     </section>
 
 
