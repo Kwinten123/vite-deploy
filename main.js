@@ -4,6 +4,7 @@ import gsap from "gsap";
 import './style.css'
 import VanillaTilt from "vanilla-tilt";
 
+
 //scene
 const scene = new Three.Scene();
 
@@ -11,7 +12,8 @@ const scene = new Three.Scene();
 //window sizes
 const sizes = {
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight,
+    isMobile : window.matchMedia("(max-width: 992px)").matches
 }
 
 
@@ -117,9 +119,19 @@ renderer.render(scene, camera)
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 controls.enablePan = false
+
 controls.enableZoom = false
 controls.autoRotate = true
-controls.autoRotateSpeed = .5
+
+//dont allow rotating scene on mobile
+if (sizes.isMobile){
+    controls.enableRotate = false
+    controls.autoRotateSpeed = 1
+}
+else {
+    controls.enableRotate = true
+    controls.autoRotateSpeed = .5
+}
 
 
 
@@ -164,11 +176,13 @@ timeLine.fromTo("nav", {y: "-200%"}, {y: "0%"})
 
 //scroll function
 function moveCamera() {
-    const currentPos = document.body.getBoundingClientRect().top;
-    const targetY = currentPos * -0.05; // Adjust the multiplication factor to control the camera movement
+  const currentPos = document.body.getBoundingClientRect().top;
+  const targetY = currentPos * -0.05;
 
+    
     // Animate camera movement using GSAP
-    gsap.to(camera.position, { duration: 1, y: targetY });
+      gsap.to(camera.position, { duration: 1, y: targetY });
+
 
     // Update camera lookAt to center on the spheres
     camera.lookAt(0, 0, 0);
@@ -176,8 +190,107 @@ function moveCamera() {
 
 window.addEventListener("scroll", moveCamera);
 
+
+
 //make the project cards tilted
 VanillaTilt.init(document.querySelectorAll(".project-container"));
 
+//runs when project cards are in view
+function handleIntersect(entries, observer) {
+    entries.forEach(function (entry, index) {
+      if (entry.isIntersecting) {
+          entry.target.classList.add("active");
 
+          const projectsTimeline = gsap.timeline({defaults: {duration : .7}})
+          projectsTimeline.fromTo(
+            entry.target,
+            { opacity: 0, y: "-50%" },
+            { opacity: 1, y: "0%" }
+          );
+
+          projectsTimeline.pause(); 
+
+      // Resume the timeline after a 500ms delay for each entry
+      setTimeout(function () {
+            projectsTimeline.play();
+        }, index * 500);
+          
+        observer.unobserve(entry.target);
+      }
+    });
+  }
+
+  const options = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.5 
+  };
+
+  const observer = new IntersectionObserver(handleIntersect, options);
+  const projectContainers = document.querySelectorAll(".project-container");
+
+  projectContainers.forEach((projectContainer) => {
+      observer.observe(projectContainer);
+  });
+
+//target = element to scroll to
+function scrollIntoView(target) {
+  document.querySelector(target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
+//put listener on projects nav bar btn
+const navBarProjects = document.querySelector(".nav-bar ul li a#nav-projects")
+navBarProjects.addEventListener("click", (event) => {
+    event.preventDefault();
+      const targetId = navBarProjects.getAttribute('href');
+    scrollIntoView(targetId)
+})
+
+//put listener on projects nav bar btn
+const scrollProjectsBtn = document.querySelector(".scroll-div a")
+scrollProjectsBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+      const targetId = scrollProjectsBtn.getAttribute('href');
+    scrollIntoView(targetId)
+})
+
+//put listener on contact nav bar btn
+const navBarContact = document.querySelector(".nav-bar ul li a#nav-contact")
+navBarContact.addEventListener("click", (event) => {
+    event.preventDefault();
+      const targetId = navBarContact.getAttribute('href');
+    scrollIntoView(targetId)
+})
+
+
+// const submitButton = document.querySelector(".send")
+// submitButton.addEventListener("click", (event) => {
+//   event.preventDefault()
+//   handleEmailSubmit()
+// })
+
+
+// async function handleEmailSubmit() {
+//   // const name = document.querySelector("")
+
+
+//   const transporter = Nodemailer.createTransport({
+//     host: 'smtp.gmail.com',
+//     port: 465,
+//     secure: true,
+//     auth: {
+//       user: 'quintensproject@gmail.com',
+//       pass: 'qwerty@qwerty'
+//     }
+//   })
+
+//   const response = await transporter.sendMail({
+//     from: '',
+//     to: 'quintensproject@gmail.com'
+//   })
+// }
+  
+
+  
 

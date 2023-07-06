@@ -96,11 +96,6 @@ html {
 
 
 
-#contact {
-  margin-top: 80px; /* Adjust this value as needed */
-}
-
-
 
 /*projects section*/
 
@@ -132,20 +127,23 @@ html {
   flex-wrap: wrap;
 }
 
+
 .project-container{
   display: flex;
   width: 360px;
   background-color: #020021;
   border-radius: 5%;
   padding: 1rem;
-  margin-top: 10%;
+  margin-top: 80px;
   flex-direction: column;
+  margin-right: 20px;
+  opacity: 0;
 }
 
 .project-container img{
   border-radius: 5%;
   width: 100%;
-  height: 200px;
+  height: 180px;
 
 }
 
@@ -187,4 +185,139 @@ html {
 .js{
   color: orange;
 }
+
+.node{
+  color: yellow;
+}
+
+.express{
+  color: red;
+}
+
+@media (max-width: 576px) {
+  .nav-bar{
+    padding: 3em 4em;
+  }
+  #projects{
+    padding: 3em 4em;
+  }
+  .projects-container{
+    justify-content: center;
+  }
+}
+
+@media (max-width: 420px){
+  .nav-bar{
+    padding: 2em 2em;
+  }
+
+  #projects{
+    padding: 3em 2em;
+  }
+}
+
+#contact {
+  display: flex;
+  margin-top: 80px; 
+  z-index: 2;
+  position: relative;
+  color: white;
+  padding: 4rem 4rem 8em 4rem;
+  flex-direction: row;
+}
+
+
+/* contact form */
+
+.contact-form{
+  background-color: #020021;
+  flex: 50%;
+  padding: 2em;
+  border-radius: 1rem;
+}
+
+.contact-title-container{
+  padding-bottom: 1em;
+}
+
+.contact-title-container p{
+  font-weight: lighter;
+}
+
+.contact-title-container h3{
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.form-container{
+  margin: 2em 1em 1em 0;
+}
+
+.form-container 
+input,textarea{
+  width: 100%;
+  height: 40px;
+  background-color: #010018;
+  color: white;
+  border: none;
+  border-radius: .6rem;
+  padding: 1em;
+  margin: 1em 0 0 0;
+}
+
+.form-container textarea{
+  height: 200px;
+  resize: none;
+}
+
+.form-container label{
+    margin-left: .5em;
+}
+
+.location-container{
+  flex: 50%;
+}
+
+.button-container{
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.send{
+ background-color: #010018;
+ border: none;
+ color: white;
+ padding: 1em 2em 1em 2em;
+ border-radius: .7rem;
+ cursor: pointer;
+ font-weight: bold;
+}
+
+
+
+
+@media (max-width: 992px) {
+      .contact-form{
+    background-color: #020021;
+    flex: 100%;
+    padding: 2em;
+    border-radius: 1rem;
+    }
+
+    .location-container{
+      flex: 0%;
+    }
+
+    #contact{
+      padding: 1em 4rem 4em 4rem;
+    }
+
+    
+}
+
+
+
+
+
 
