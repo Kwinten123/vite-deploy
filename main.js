@@ -318,6 +318,10 @@ async function sendEmail() {
             emailInput.value = ""
             messageInput.value = ""
 
+            nameInput.style.outline = `none`
+            emailInput.style.outline = `none`
+            messageInput.style.outline = `none`
+
             alert("Message send!")
 
         }, function (err) {
