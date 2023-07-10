@@ -3,6 +3,8 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import gsap from "gsap";
 import './style.css'
 import VanillaTilt from "vanilla-tilt";
+import emailjs from "@emailjs/browser";
+
 
 
 //scene
@@ -264,33 +266,163 @@ navBarContact.addEventListener("click", (event) => {
 })
 
 
-// const submitButton = document.querySelector(".send")
-// submitButton.addEventListener("click", (event) => {
-//   event.preventDefault()
-//   handleEmailSubmit()
-// })
+function initEmail() {
+    emailjs.init('9iYZbQe_UVgKUFqOu');
+}initEmail();
 
 
-// async function handleEmailSubmit() {
-//   // const name = document.querySelector("")
+const sendMailButton = document.querySelector("button.send")
+
+sendMailButton.addEventListener("click", (event) =>{
+    event.preventDefault()
+    sendEmail()
+})
 
 
-//   const transporter = Nodemailer.createTransport({
-//     host: 'smtp.gmail.com',
-//     port: 465,
-//     secure: true,
-//     auth: {
-//       user: 'quintensproject@gmail.com',
-//       pass: 'qwerty@qwerty'
-//     }
-//   })
 
-//   const response = await transporter.sendMail({
-//     from: '',
-//     to: 'quintensproject@gmail.com'
-//   })
-// }
-  
+
+async function sendEmail() {
+    const nameInput = document.querySelector("#inputName")
+    const emailInput = document.querySelector("#inputEmail")
+    const messageInput = document.querySelector("#inputMessage")
+
+    const inputFields = {
+        nameField : nameInput,
+        emailField : emailInput,
+        messageField : messageInput
+    }
+
+    let toBeValidated = {
+        name: nameInput.value,
+        email: emailInput.value,
+        message: messageInput.value,
+        isValid: false
+    }
+
+    toBeValidated = validateContactForm(toBeValidated, inputFields)
+
+
+    if (toBeValidated.isValid) {
+        const SERVICE_ID = "service_g3hvom4"
+        const TEMPLATE_ID = "template_v2ns5ur"
+
+        emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+            from_name: toBeValidated.name,
+            from_email: toBeValidated.email,
+            message: toBeValidated.message,
+            reply_to: toBeValidated.email,
+        }).then(function (response) {
+            console.log('SUCCESS : ', response.status, response.text);
+
+            nameInput.value = ""
+            emailInput.value = ""
+            messageInput.value = ""
+
+            alert("Message send!")
+
+        }, function (err) {
+            console.log('FAILED : ', err);
+        });
+    }
+}
+
+function validateContactForm(toBeValidated, inputFields){
+    let nameIsValid = toBeValidated.name.trim().length !== 0
+
+    const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+    let emailIsValid = emailPattern.test(toBeValidated.email);
+
+    let messageIsValid = toBeValidated.message.trim().length !== 0
+
+    if (nameIsValid && emailIsValid && messageIsValid){
+        toBeValidated.isValid = true
+
+        return toBeValidated
+    }
+    else {
+
+
+        const GOOD_COLOR = "green"
+        const BAD_COLOR = "red"
+
+
+        //name
+
+        //check if value is valid
+        if (!nameIsValid){
+            inputFields.nameField.style.outline = `solid ${BAD_COLOR} 1px`
+        }
+        else{
+            inputFields.nameField.style.outline = `solid ${GOOD_COLOR} 1px`
+        }
+
+        inputFields.nameField.addEventListener("input", () =>{
+            //valid
+            if (inputFields.nameField.value.trim().length !== 0){
+                inputFields.nameField.style.outline = `solid ${GOOD_COLOR} 1px`
+            }
+            //not valid
+            else {
+                inputFields.nameField.style.outline = `solid ${BAD_COLOR} 1px`
+            }
+        })
+
+
+        //email
+
+        //check if value is valid
+        if (!emailIsValid){
+            inputFields.emailField.style.outline = `solid ${BAD_COLOR} 1px`
+        }
+        else{
+            inputFields.emailField.style.outline = `solid ${GOOD_COLOR} 1px`
+        }
+
+
+        inputFields.emailField.addEventListener("input", () =>{
+            //valid
+            if (emailPattern.test(inputFields.emailField.value)){
+                inputFields.emailField.style.outline = `solid ${GOOD_COLOR} 1px`
+            }
+            //not valid
+            else {
+                inputFields.emailField.style.outline = `solid ${BAD_COLOR} 1px`
+            }
+        })
+
+        //message
+
+        //check if value is valid
+        if (!messageIsValid){
+            inputFields.messageField.style.outline = `solid ${BAD_COLOR} 1px`
+        }
+        else{
+            inputFields.messageField.style.outline = `solid ${GOOD_COLOR} 1px`
+        }
+
+
+        inputFields.messageField.addEventListener("input", () =>{
+
+            //valid
+            if (inputFields.messageField.value.trim().length !== 0){
+                inputFields.messageField.style.outline = `solid ${GOOD_COLOR} 1px`
+            }
+            //not valid
+            else {
+                inputFields.messageField.style.outline = `solid ${BAD_COLOR} 1px`
+            }
+        })
+
+        return toBeValidated
+    }
+}
+
+
+
+
+
+
 
   
 
