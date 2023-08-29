@@ -347,28 +347,28 @@ function validateContactForm(toBeValidated, inputFields){
     else {
 
 
-        const GOOD_COLOR = "green"
-        const BAD_COLOR = "red"
+        const GOOD_STYLING = "solid green 1px"
+        const BAD_STYLING = "solid red 1px"
 
 
         //name
 
         //check if value is valid
         if (!nameIsValid){
-            inputFields.nameField.style.outline = `solid ${BAD_COLOR} 1px`
+            inputFields.nameField.style.outline = BAD_STYLING
         }
         else{
-            inputFields.nameField.style.outline = `solid ${GOOD_COLOR} 1px`
+            inputFields.nameField.style.outline = GOOD_STYLING
         }
 
         inputFields.nameField.addEventListener("input", () =>{
             //valid
             if (inputFields.nameField.value.trim().length !== 0){
-                inputFields.nameField.style.outline = `solid ${GOOD_COLOR} 1px`
+                inputFields.nameField.style.outline = GOOD_STYLING
             }
             //not valid
             else {
-                inputFields.nameField.style.outline = `solid ${BAD_COLOR} 1px`
+                inputFields.nameField.style.outline = BAD_STYLING
             }
         })
 
@@ -377,21 +377,21 @@ function validateContactForm(toBeValidated, inputFields){
 
         //check if value is valid
         if (!emailIsValid){
-            inputFields.emailField.style.outline = `solid ${BAD_COLOR} 1px`
+            inputFields.emailField.style.outline = BAD_STYLING
         }
         else{
-            inputFields.emailField.style.outline = `solid ${GOOD_COLOR} 1px`
+            inputFields.emailField.style.outline = GOOD_STYLING
         }
 
 
         inputFields.emailField.addEventListener("input", () =>{
             //valid
             if (emailPattern.test(inputFields.emailField.value)){
-                inputFields.emailField.style.outline = `solid ${GOOD_COLOR} 1px`
+                inputFields.emailField.style.outline = GOOD_STYLING
             }
             //not valid
             else {
-                inputFields.emailField.style.outline = `solid ${BAD_COLOR} 1px`
+                inputFields.emailField.style.outline = BAD_STYLING
             }
         })
 
@@ -399,10 +399,10 @@ function validateContactForm(toBeValidated, inputFields){
 
         //check if value is valid
         if (!messageIsValid){
-            inputFields.messageField.style.outline = `solid ${BAD_COLOR} 1px`
+            inputFields.messageField.style.outline = BAD_STYLING
         }
         else{
-            inputFields.messageField.style.outline = `solid ${GOOD_COLOR} 1px`
+            inputFields.messageField.style.outline = GOOD_STYLING
         }
 
 
@@ -410,11 +410,11 @@ function validateContactForm(toBeValidated, inputFields){
 
             //valid
             if (inputFields.messageField.value.trim().length !== 0){
-                inputFields.messageField.style.outline = `solid ${GOOD_COLOR} 1px`
+                inputFields.messageField.style.outline = GOOD_STYLING
             }
             //not valid
             else {
-                inputFields.messageField.style.outline = `solid ${BAD_COLOR} 1px`
+                inputFields.messageField.style.outline = BAD_STYLING
             }
         })
 
