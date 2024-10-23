@@ -283,10 +283,28 @@ input,textarea{
   outline: solid white 1px;
 }
 
+.top-container{
+  display: flex;
+  justify-content: space-between;
+}
+
 .button-container{
   display: flex;
   justify-content: flex-start;
   width: 100%;
+}
+
+.socials-container{
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5em;
+  margin-right: 1rem;
+}
+
+.socials-container img{
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
 }
 
 .send{
